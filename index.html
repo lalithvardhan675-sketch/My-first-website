@@ -1,1 +1,627 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lalith Hub | My Digital World</title>
+
+<style>
+:root {
+  --bg: #0b1020;
+  --card: #151d32;
+  --text: #f5f7ff;
+  --muted: #aab5d0;
+  --accent: #8b5cf6;
+  --accent2: #22d3ee;
+}
+
+* { box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: .3s;
+}
+
+body.light {
+  --bg: #eef2ff;
+  --card: #ffffff;
+  --text: #17203a;
+  --muted: #59657c;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 7%;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.logo { font-size: 24px; font-weight: bold; }
+.logo span { color: var(--accent2); }
+
+a { color: var(--text); text-decoration: none; }
+.navlinks { display: flex; gap: 18px; flex-wrap: wrap; }
+
+button, input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  padding: 11px 17px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover { transform: translateY(-2px); }
+
+.primary {
+  background: linear-gradient(120deg, var(--accent), var(--accent2));
+  color: white;
+  font-weight: bold;
+}
+
+.secondary {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--accent);
+}
+
+.hero {
+  text-align: center;
+  padding: 95px 20px 85px;
+  background:
+    radial-gradient(ellipse at top, #43318a 0%, transparent 65%);
+}
+
+.tag {
+  color: var(--accent2);
+  letter-spacing: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 8vw, 76px);
+  margin: 20px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #a78bfa, #22d3ee);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto 25px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+section {
+  padding: 55px 7%;
+  scroll-margin-top: 70px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-title p { color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #77777722;
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.emoji { font-size: 35px; }
+.card p { color: var(--muted); line-height: 1.7; }
+
+.stat {
+  font-size: 38px;
+  font-weight: bold;
+  color: var(--accent2);
+  margin: 12px 0;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 9px;
+  border: 1px solid #8888;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.row input { flex: 1; min-width: 0; }
+
+#taskList { padding: 0; list-style: none; }
+
+#taskList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin: 9px 0;
+  background: var(--bg);
+  border-radius: 9px;
+  overflow-wrap: anywhere;
+}
+
+#taskList li span { flex: 1; }
+
+#taskList li.done span {
+  text-decoration: line-through;
+  opacity: .55;
+}
+
+.small {
+  padding: 7px 10px;
+  background: #ffffff18;
+  color: var(--text);
+}
+
+#message {
+  min-height: 28px;
+  color: var(--accent2);
+  margin-top: 12px;
+}
+
+.quiz-question {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.quiz-options button {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid #7778;
+}
+
+.quote {
+  font-size: 22px;
+  line-height: 1.7;
+  min-height: 75px;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 15px;
+  color: var(--muted);
+  background: var(--card);
+}
+
+@media(max-width: 550px) {
+  nav { padding: 15px 5%; }
+  .navlinks { gap: 12px; font-size: 14px; }
+  section { padding: 45px 5%; }
+  .quiz-options { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">LALITH<span> HUB.</span></div>
+  <div class="navlinks">
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#games">Games</a>
+    <a href="#tools">My Tools</a>
+  </div>
+  <button class="secondary" onclick="toggleTheme()">☀️ / 🌙</button>
+</nav>
+
+<header class="hero" id="home">
+  <div class="tag">WELCOME TO MY DIGITAL WORLD</div>
+  <h1>Think Big.<br><span class="gradient">Build Bigger.</span></h1>
+  <p>
+    Welcome to Lalith Hub! A little corner of the internet
+    filled with fun, useful tools, mini-games and cool ideas.
+  </p>
+  <button class="primary" onclick="goTo('features')">
+    Explore the website →
+  </button>
+  <button class="secondary" onclick="changeGreeting()">
+    Surprise me ✨
+  </button>
+  <p id="greeting"></p>
+</header>
+
+<section id="features">
+  <div class="section-title">
+    <h2>⚡ What's inside?</h2>
+    <p>Explore the things you can do here.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="emoji">🎮</div>
+      <h3>Mini Games</h3>
+      <p>Play a quiz and test your brain with quick challenges.</p>
+      <button class="secondary" onclick="goTo('games')">Play now</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">✅</div>
+      <h3>Task Manager</h3>
+      <p>Add your tasks, tick them off and organise your day.</p>
+      <button class="secondary" onclick="goTo('tools')">Open tasks</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">💡</div>
+      <h3>Daily Inspiration</h3>
+      <p>Generate a fresh motivational quote whenever you need one.</p>
+      <button class="secondary" onclick="newQuote()">Get inspired</button>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🚀</div>
+      <h3>My First Project</h3>
+      <p>This entire website is built using HTML, CSS and JavaScript.</p>
+      <button class="secondary" onclick="showProject()">Learn more</button>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="section-title">
+    <h2>🎯 Quick Quiz</h2>
+    <p>Let's see what you've got!</p>
+  </div>
+
+  <div class="card" style="max-width:650px;margin:auto;">
+    <div id="questionCount" class="tag">QUESTION 1 OF 5</div>
+    <p class="quiz-question" id="question">Loading question...</p>
+    <div class="quiz-options" id="options"></div>
+    <p id="quizFeedback" aria-live="polite"></p>
+    <button class="primary" id="nextBtn" onclick="nextQuestion()" hidden>
+      Next question →
+    </button>
+    <p id="scoreText"></p>
+  </div>
+
+  <div class="card" style="max-width:650px;margin:25px auto 0;">
+    <h3>🎲 Click Challenge</h3>
+    <p>Click the button as many times as you can!</p>
+    <div class="stat" id="clickCount">0</div>
+    <button class="primary" onclick="addClick()">CLICK ME 🔥</button>
+    <button class="secondary" onclick="resetClicks()">Reset</button>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-title">
+    <h2>🛠️ My Little Toolbox</h2>
+    <p>Useful stuff that actually works.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>✅ To-Do List</h3>
+      <p>Add a task, tick it when done, or delete it.</p>
+      <div class="row">
+        <input id="taskInput" placeholder="What do you need to do?"
+          onkeydown="if(event.key==='Enter') addTask()">
+        <button class="primary" onclick="addTask()">Add</button>
+      </div>
+      <ul id="taskList"></ul>
+      <button class="secondary" onclick="clearTasks()">Clear all</button>
+      <p id="taskStatus" aria-live="polite"></p>
+    </div>
+
+    <div class="card">
+      <h3>🧮 Quick Calculator</h3>
+      <p>Enter two numbers and choose an operation.</p>
+      <input id="num1" type="number" placeholder="First number">
+      <input id="num2" type="number" placeholder="Second number">
+      <div class="row">
+        <button class="primary" onclick="calculate('+')">+</button>
+        <button class="primary" onclick="calculate('-')">−</button>
+        <button class="primary" onclick="calculate('*')">×</button>
+        <button class="primary" onclick="calculate('/')">÷</button>
+      </div>
+      <div class="stat" id="calcResult">= ?</div>
+    </div>
+
+    <div class="card">
+      <h3>💬 Motivation Machine</h3>
+      <p>Need a little inspiration? Press the button.</p>
+      <div class="quote" id="quote">Your next idea could be your best one.</div>
+      <button class="primary" onclick="newQuote()">New quote ✨</button>
+    </div>
+
+    <div class="card">
+      <h3>⏰ Live Clock</h3>
+      <p>Your current device time.</p>
+      <div class="stat" id="clock">--:--:--</div>
+      <p id="today"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card" style="text-align:center;">
+    <h2>🌟 Dream it. Build it.</h2>
+    <p id="projectMessage">
+      This is only the beginning of your coding journey.
+    </p>
+    <button class="primary" onclick="showProject()">About this project</button>
+    <button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      Back to top ↑
+    </button>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">LALITH<span> HUB.</span></div>
+  <p>Designed with curiosity and built with code 💻</p>
+  <p>© <span id="year"></span> Lalith Hub · My first web project</p>
+</footer>
+
+<script>
+function goTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light');
+}
+
+function changeGreeting() {
+  const greetings = [
+    "AYYY MACHAAA! Welcome to my world 🔥",
+    "Future entrepreneur loading... 🚀",
+    "Small steps. Big dreams. 💡",
+    "You built this. Be proud of it! 😎",
+    "RCB FOREVER ❤️"
+  ];
+  document.getElementById('greeting').textContent =
+    greetings[Math.floor(Math.random() * greetings.length)];
+}
+
+let clicks = 0;
+
+function addClick() {
+  clicks++;
+  document.getElementById('clickCount').textContent = clicks;
+}
+
+function resetClicks() {
+  clicks = 0;
+  document.getElementById('clickCount').textContent = clicks;
+}
+
+const questions = [
+  {q:"What does HTML stand for?", a:["HyperText Markup Language","High Tech Modern Language","Home Tool Markup List","Hyperlink Text Machine"], correct:0},
+  {q:"Which language styles a website?", a:["Python","CSS","SQL","HTML only"], correct:1},
+  {q:"Which language makes buttons interactive?", a:["JavaScript","CSS","Markdown","None"], correct:0},
+  {q:"What does CPU stand for?", a:["Computer Power Unit","Central Processing Unit","Core Program Utility","Central Print Unit"], correct:1},
+  {q:"Which tag makes a big main heading?", a:["<p>","<img>","<h1>","<button>"], correct:2}
+];
+
+let questionIndex = 0;
+let score = 0;
+let answered = false;
+
+function loadQuestion() {
+  const q = questions[questionIndex];
+  document.getElementById('questionCount').textContent =
+    'QUESTION ' + (questionIndex + 1) + ' OF ' + questions.length;
+  document.getElementById('question').textContent = q.q;
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('scoreText').textContent = '';
+  document.getElementById('nextBtn').hidden = true;
+  document.getElementById('options').innerHTML = '';
+  answered = false;
+
+  q.a.forEach((answer, index) => {
+    const button = document.createElement('button');
+    button.textContent = answer;
+    button.onclick = () => answerQuestion(index);
+    document.getElementById('options').appendChild(button);
+  });
+}
+
+function answerQuestion(index) {
+  if (answered) return;
+  answered = true;
+
+  const correct = questions[questionIndex].correct;
+  const buttons = document.getElementById('options').children;
+
+  if (index === correct) {
+    score++;
+    document.getElementById('quizFeedback').textContent = 'Correct! 🔥';
+  } else {
+    document.getElementById('quizFeedback').textContent =
+      'Not quite! The correct answer is: ' + questions[questionIndex].a[correct];
+  }
+
+  buttons[correct].style.border = '2px solid #22d3ee';
+  for (const button of buttons) button.disabled = true;
+
+  document.getElementById('scoreText').textContent =
+    'Your score: ' + score + '/' + questions.length;
+
+  document.getElementById('nextBtn').hidden = false;
+  document.getElementById('nextBtn').textContent =
+    questionIndex === questions.length - 1 ? 'See final score 🏆' : 'Next question →';
+}
+
+function nextQuestion() {
+  if (!answered) return;
+
+  if (questionIndex < questions.length - 1) {
+    questionIndex++;
+    loadQuestion();
+  } else {
+    document.getElementById('questionCount').textContent = 'QUIZ COMPLETE!';
+    document.getElementById('question').textContent =
+      score === questions.length ? 'PERFECT SCORE! 🏆' : 'Nice attempt! 🎉';
+    document.getElementById('options').innerHTML = '';
+    document.getElementById('quizFeedback').textContent =
+      'You scored ' + score + ' out of ' + questions.length + '!';
+    document.getElementById('nextBtn').textContent = 'Play again ↻';
+    document.getElementById('nextBtn').onclick = restartQuiz;
+    document.getElementById('nextBtn').hidden = false;
+    document.getElementById('scoreText').textContent = '';
+  }
+}
+
+function restartQuiz() {
+  questionIndex = 0;
+  score = 0;
+  document.getElementById('nextBtn').onclick = nextQuestion;
+  loadQuestion();
+}
+
+const quotes = [
+  "Great things start with small steps. 🚀",
+  "Your only competition is who you were yesterday.",
+  "Learn something today that your future self will thank you for.",
+  "Every expert was once a beginner. 💻",
+  "Ideas are powerful. Building them is even better.",
+  "You don't need to know everything to start.",
+  "Keep experimenting. That's how you learn. 🔥"
+];
+
+function newQuote() {
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById('quote').textContent = quote;
+  goTo('tools');
+}
+
+function showProject() {
+  document.getElementById('projectMessage').textContent =
+    'Lalith Hub is a beginner project made with HTML for structure, CSS for design, and JavaScript for interactive features. Next step: make it your own!';
+}
+
+function addTask() {
+  const input = document.getElementById('taskInput');
+  const value = input.value.trim();
+  if (!value) {
+    document.getElementById('taskStatus').textContent = 'Type a task first!';
+    return;
+  }
+
+  const li = document.createElement('li');
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.style.width = 'auto';
+  checkbox.onchange = () => li.classList.toggle('done', checkbox.checked);
+
+  const span = document.createElement('span');
+  span.textContent = value;
+
+  const del = document.createElement('button');
+  del.textContent = '✕';
+  del.className = 'small';
+  del.setAttribute('aria-label', 'Delete task');
+  del.onclick = () => li.remove();
+
+  li.append(checkbox, span, del);
+  document.getElementById('taskList').appendChild(li);
+  input.value = '';
+  document.getElementById('taskStatus').textContent = 'Task added! ✅';
+  input.focus();
+}
+
+function clearTasks() {
+  document.getElementById('taskList').innerHTML = '';
+  document.getElementById('taskStatus').textContent = 'All tasks cleared.';
+}
+
+function calculate(operator) {
+  const a = document.getElementById('num1').value;
+  const b = document.getElementById('num2').value;
+  const output = document.getElementById('calcResult');
+
+  if (a.trim() === '' || b.trim() === '') {
+    output.textContent = 'Enter both numbers!';
+    return;
+  }
+
+  const x = Number(a);
+  const y = Number(b);
+  let result;
+
+  if (operator === '+') result = x + y;
+  if (operator === '-') result = x - y;
+  if (operator === '*') result = x * y;
+
+  if (operator === '/') {
+    if (y === 0) {
+      output.textContent = 'Cannot divide by zero!';
+      return;
+    }
+    result = x / y;
+  }
+
+  output.textContent = '= ' + result;
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString();
+  document.getElementById('today').textContent =
+    now.toLocaleDateString(undefined, {
+      weekday:'long', year:'numeric', month:'long', day:'numeric'
+    });
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+loadQuestion();
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
+
